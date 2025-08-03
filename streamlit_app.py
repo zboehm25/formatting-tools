@@ -75,6 +75,14 @@ def unpivot_and_date(df):
     df_melted['Month'] = df_melted['Date'].apply(lambda x: x.split('-')[1])
     df_melted = df_melted.drop(columns=['Date'])
     df_melted['Scenario'] = 'Actual'
+    
+    # Convert Year and Month to numeric
+    df_melted['Year'] = pd.to_numeric(df_melted['Year'], errors='coerce')
+    df_melted['Month'] = pd.to_numeric(df_melted['Month'], errors='coerce')
+    
+    # Filter out rows where Value is zero
+    df_melted = df_melted[df_melted['Value'] != 0]
+    
     df_melted = df_melted[['Account', 'Year', 'Month', 'Scenario', 'Value']]
     return df_melted
 
