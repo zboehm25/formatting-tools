@@ -1,1 +1,1 @@
-set python-3.12
+set python-3.10
